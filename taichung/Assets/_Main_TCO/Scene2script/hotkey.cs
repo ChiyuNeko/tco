@@ -9,7 +9,7 @@ public class hotkey : MonoBehaviour
     public GameObject crabmanager;
     public GameObject[] crabs;
     public GameObject[] crabb;
-    public dynamicGeneration SummonCrabs;   //put GameObject "dynamicGeneration" here
+    public dynamicGeneration SummonCrabs;    //put GameObject "dynamicGeneration" here
     public bool crabfollow;
     public bool onetime;
     public int crabcount;
