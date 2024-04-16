@@ -8,7 +8,8 @@ public class hotkey : MonoBehaviour
     public GameObject crabposition;
     public GameObject crabmanager;
     public GameObject[] crabs;
-    public GameObject crabb;
+    public GameObject[] crabb;
+    public dynamicGeneration SummonCrabs;   //put GameObject "dynamicGeneration" here
     public bool crabfollow;
     public bool onetime;
     public int crabcount;
@@ -43,7 +44,7 @@ public class hotkey : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             crabfollow = false;
-             //Instantiate(crab,headset.transform.position , Quaternion.Euler(new Vector3(0, 0, 0)));
+            //Instantiate(crab,headset.transform.position , Quaternion.Euler(new Vector3(0, 0, 0)));
             //Instantiate(crab, new Vector3(crabposition.transform.position.x + Random.Range(-4.5f, 4.5f), crabposition.transform.position.y , crabposition.transform.position.z + Random.Range(-2.5f, 2.5f)), Quaternion.Euler(new Vector3(0, 0, 0)));
 
 
@@ -52,17 +53,21 @@ public class hotkey : MonoBehaviour
         {
             if (!onetime)
             {
-               GameObject crabs = Instantiate(crab, headset.transform.position, Quaternion.Euler(new Vector3(0, 180,180)));
+                onetime = true;
+                GameObject[] crabs = SummonCrabs.SummonCrab();
                 crabb = crabs;
-               onetime = true;
             }
-            crabb.transform.position = Vector3.Lerp(crabb.transform.position, headset.transform.position, 0.05f);
+
+            for (int i =0; i<crabb.Length; i++)
+                {
+                    crabb[i].transform.position = Vector3.Lerp(crabb[i].transform.position, headset.transform.position, 0.05f);     //Every summoned crabs can follow
+                }
         }
         else
         {
             onetime = false;
             crabfollow = false;
-            crabb = null;
+            SummonCrabs.crabb.Clear();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
